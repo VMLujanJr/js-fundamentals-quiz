@@ -41,10 +41,10 @@ THEN I can save my initials and score
 
 **Deployment: 32%**
 
-- [ ] Application deployed at live URL
+- [x] Application deployed at live URL
 - [ ] Application loads with no errors
-- [ ] Application GitHub URL submitted
-- [ ] GitHub repository contains application code
+- [x] Application GitHub URL submitted
+- [x] GitHub repository contains application code
 
 **Application Quality: 15%**
 
@@ -54,11 +54,11 @@ THEN I can save my initials and score
 
 **Repository Quality: 13%**
 
-- [ ] Repository has a unique name
-- [ ] Repository follows best practices for file structure and naming conventions
+- [x] Repository has a unique name
+- [x] Repository follows best practices for file structure and naming conventions
 - [ ] Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
 - [ ] Repository contains multiple descriptive commit messages
-- [ ] Repository contains quality README.md with description, screenshots, link to deployed application
+- [x] Repository contains quality README.md with description, screenshots, link to deployed application
 
 ### **MOCK UP: JavaScript Quiz Functionality**
 
@@ -77,6 +77,7 @@ THEN I can save my initials and score
   - [Languages](#languages)
   - [Installation](#installation)
   - [Usage](#usage)
+  - [Deployed Webpage](#deployed-webpage)
   - [Credits](#credits)
   - [License](#license)
 
@@ -99,6 +100,9 @@ A list of languages used for this project:
 ```
 (Work in progress...)
 ```
+
+## Deployed Webpage
+This is the deployed [webpage](https://vmlujanjr.github.io/js-fundamentals-quiz/) application.
 
 ## Credits
 
