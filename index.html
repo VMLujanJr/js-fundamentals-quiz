@@ -25,14 +25,22 @@
 </head>
 <body>
     <main class="page-content">
-        <section class="primary-wrapper">
+        <section id="primary-container" class="show">
             <h1 class="text-center">JavaScript Fundamentals Quiz</h1>
             <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score / time by ten seconds!</p>
-            <button type="button" class="start-quiz">Start Quiz!</button>
+            <button type="button" class="start-btn" id="start-btn">Start Quiz!</button>
         </section>
-        <section class="secondary-wrapper">
+
+        <section id="question-container" class="hide">
+            <div class="container questions">
+                <div id="question">JavaScript</div>
+                <div id="answer-choices"></div>
+            </div>
+        </section>
+
+        <section id="highscore-container">
             <a href="./high-score-page.html">View High Scores</a>
-            <div class="time">This is your time</div>
+            <div class="timer" id="timer">Timed Quiz</div>
         </section>
     </main>
 </body>

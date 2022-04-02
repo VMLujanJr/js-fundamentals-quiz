@@ -8,11 +8,13 @@ Thank you for taking the time to review my JavaScript fundamentals quiz!
 
 [js-fundamentals-quiz](https://github.com/VMLujanJr/js-fundamentals-quiz) is an interactive quiz that covers basic JavaScript fundamentals in a simple question & answer format with next and previous buttons.
 
+You may also visit the interactive [website](https://github.com/VMLujanJr/js-fundamentals-quiz) to try out the quiz yourself.
+
 ## Objectives
 ```
-AS AN employee with access to sensitive data
-I WANT to randomly generate a password that meets certain criteria
-SO THAT I can create a strong password that provides greater security
+AS A coding boot camp student
+I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
+SO THAT I can gauge my progress compared to my peers
 ```
 
 ### **Acceptance Criteria**
