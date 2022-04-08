@@ -1,10 +1,7 @@
-// Psuedocoding your way through life
-
-// 1 create a coding quiz application
-
 // 2 Start button, has a timer, and presents questions
     // create start button
     // timer using setInterval
+
     // DIVs to display question, timer, and high score
 
 // 3 answering a question move to the next question
@@ -20,35 +17,60 @@
 // **********************************************************************
 // Functions
 // **********************************************************************
-
-var startQuiz = function() {
-    primaryContainerEl.classList.remove("show");
-    primaryContainerEl.classList.add("hide");
+const startQuiz = function() {
+    // hides ID introduction
+    introductionEl.classList.add("hide");
+    introductionEl.classList.remove("show");
     
-    questionContainerEl.classList.remove("hide");
-    questionContainerEl.classList.add("show");
-    
+    // shows ID display-quiz
+    displayQuizEl.classList.add("show");
+    displayQuizEl.classList.remove("hide");
 
-    showQuestion();
+    // store HTML output
+    const output = [];
+
+    // for each question 
+    questionPool.forEach((currentQuestion, questionIndex) => { // parameters are 'currentvalue', 'index', 'array itself'
+        // store possible answer choices
+        const storeChoices = [];
+
+        // for each available answer
+        for (number in currentQuestion.choices) {
+            // add an html radio button
+            storeChoices.push(
+                `
+                <label class='choices'>
+                <input type='radio' name='question${questionIndex}' value='${number}'>
+                ${currentQuestion.choices[number]}
+                </label>
+                `
+            );
+        }
+
+        // add this question and its answers to the output
+        output.push(
+        `
+        <div class='question'>${currentQuestion.question}</div>
+        <div class='answers'>${storeChoices.join('')}</div>
+        `
+        );
+
+    quizContainerEl.innerHTML = output.join('');
+    });
+    
+    // start counter
     countdownTimer();
 };
 
-var displayQuestion = function(index) {
-    questionEl.textContent = index.question;
+const showResults = function() {
 
-    for (var i = 0; i < index.answers.length; i++) {
-        
-    }
-
-    var displayQuestion = document.createElement("div");
-
-
-    displayQuestion.textContent = questionPool.question;
-
-    questionEl.appendChild(displayQuestion);
 };
 
-var countdownTimer = function() {
+const saveQuestions = function () {
+    localStorage.setItem("questions", JSON.stringify(questionPool));
+}
+
+const countdownTimer = function() {
     // define time in seconds
     let counter = 60;
     
@@ -56,79 +78,78 @@ var countdownTimer = function() {
         counter--; // reduce counter by 1
 
         if (counter >= 0) { // continue countdown if...
-            timerDisplayEl.textContent = "Time Remaining: " + counter;
+            displayTimerEl.textContent = "Time Remaining: " + counter;
         }
         
         if (counter === 0) { // display
-            timerDisplayEl.textContent = "The counter has finished!";
+            displayTimerEl.textContent = "The counter has finished!";
         }
     }, 1000);
-};
-
-function endQuiz(){
-    // logic to end the quiz
 };
 
 // **********************************************************************
 // References
 // **********************************************************************
-var startButtonEl = document.querySelector("#start-btn"); // references start-btn
-var timerDisplayEl = document.querySelector("#timer"); // references timer
-var primaryContainerEl = document.querySelector("#primary-container"); // references container 
-var questionContainerEl = document.querySelector("#question-container");
-var questionEl = document.querySelector("#question");
+const quizContainerEl = document.getElementById("quiz");
+const submitButtonEl = document.getElementById("submit");
+const resultsContainerEl = document.getElementById("results");
+const startButtonEl = document.getElementById("start-btn");
+const introductionEl = document.getElementById("introduction");
+const displayQuizEl = document.getElementById("display-quiz");
+const displayTimerEl = document.getElementById("timer");
+const previousEl = document.getElementById("previous");
+const nextEl = document.getElementById("next");
 
-var questionIndex = 0;
-var questionPool = [
+const questionPool = [
     {  
-        question: "Question1",
-        answers: {
-            answer1:"1",
-            answer2:"2",
-            answer3:"3",
-            answer4:"4"
+        question: "What is the name of the statement that is used to exit or end a loop?",
+        choices: {
+            1:"Falter statement",
+            2:"Break statement",
+            3:"Conditional statement",
+            4:"Close statement"
         },
-        correct: "answer1"
+        correct: 2
     },
     {
-        question:"Question2",
-        answers: {
-            answer1:"1",
-            answer2:"2",
-            answer3:"3",
-            answer4:"4"
+        question: "What kind of statement is used to execute actions based on a trigger or condition?",
+        choices: {
+            1:"Conditional statement",
+            2:"Regular Expression",
+            3:"Fired Event",
+            4:"Boolean Variable"
         },
-        correct: "answer1"
+        correct: 1
     },
     {
-        question:"Question3",
-        answers: {
-            answer1:"1",
-            answer2:"2",
-            answer3:"3",
-            answer4:"4"
+        question: "This is what you call the guide that defines coding conventions for all projects.",
+        choices: {
+            1:"Style guide",
+            2:"Coding dictionary",
+            3:"Developer's reference",
+            4:"Main textbook"
         },
-        correct: "answer1"
+        correct: 1
     },
     {
-        question:"Question4",
-        answers: {
-            answer1:"1",
-            answer2:"2",
-            answer3:"3",
-            answer4:"4"
+        question: "What are the identifiers called that cannot be used as variables or function names?",
+        choices: {
+            1:"Favorites",
+            2:"Concrete Terms",
+            3:"Constants",
+            4:"Reserved Words"
         },
-        correct: "answer1"
+        correct: 4
     },
     {
-        question:"Question5",
-        answers: {
-            answer1:"1",
-            answer2:"2",
-            answer3:"3",
-            answer4:"4"
+        question: "JavaScript does NOT have this function built-in, which is commonly used to print or display data in other languages.",
+        choices: {
+            1:"Show",
+            2:"Output",
+            3:"Display",
+            4:"Speak"
         },
-        correct: "answer1"
+        correct: 2
     }
 ];
 
@@ -136,3 +157,4 @@ var questionPool = [
 // Event Listeners
 // **********************************************************************
 startButtonEl.addEventListener("click", startQuiz);
+submitButtonEl.addEventListener("click", showResults);
