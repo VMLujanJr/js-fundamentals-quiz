@@ -62,8 +62,47 @@ const startQuiz = function() {
     countdownTimer();
 };
 
-const showResults = function() {
+const recordResults = function() {
+    
+    // track user input (selected choice)
+    // select all answer containers
+    const selectedAnswerContainer = quizContainerEl.querySelectorAll(".answers");
 
+    // track # of correct answers
+    let numberCorrect = 0;
+
+    // for each question
+    questionPool.forEach((currentQuestion, questionIndex) => {
+        // find selected answer
+        const selectedAnswers = selectedAnswerContainer[questionIndex]; // select current question ANSWERS container
+        const selector = `input[name='question${questionIndex}']:checked`; // check current question INDEX
+        console.log(selector);
+        const userAnswer = (selectedAnswers.querySelector(selector) || {}).value; // returns value of checked index
+
+        // if answer is correct
+        if (userAnswer === currentQuestion.correct) {
+            // increment # of correct answers by 1
+            numberCorrect++;
+        }
+        // if answer is wrong
+        else {
+            // reduce time by 10 seconds
+            counter -= 10;
+        }
+    });
+
+
+    // once next button is clicked, then commit the selected choice
+    
+    // if choice is correct, no time is subtracted
+    // if choice is incorrect, time is subtracted by 10 seconds
+    
+    // move to next question
+
+    // if all questions are answered
+
+    // show results in high score
+     
 };
 
 const saveQuestions = function () {
@@ -71,8 +110,8 @@ const saveQuestions = function () {
 }
 
 const countdownTimer = function() {
-    // define time in seconds
-    let counter = 60;
+/*     // define time in seconds
+    let counter = 60; */
     
     setInterval(function () {
         counter--; // reduce counter by 1
@@ -100,6 +139,8 @@ const displayTimerEl = document.getElementById("timer");
 const previousEl = document.getElementById("previous");
 const nextEl = document.getElementById("next");
 
+let counter = 60;
+
 const questionPool = [
     {  
         question: "What is the name of the statement that is used to exit or end a loop?",
@@ -109,7 +150,7 @@ const questionPool = [
             3:"Conditional statement",
             4:"Close statement"
         },
-        correct: 2
+        correct: "2"
     },
     {
         question: "What kind of statement is used to execute actions based on a trigger or condition?",
@@ -119,7 +160,7 @@ const questionPool = [
             3:"Fired Event",
             4:"Boolean Variable"
         },
-        correct: 1
+        correct: "1"
     },
     {
         question: "This is what you call the guide that defines coding conventions for all projects.",
@@ -129,7 +170,7 @@ const questionPool = [
             3:"Developer's reference",
             4:"Main textbook"
         },
-        correct: 1
+        correct: "1"
     },
     {
         question: "What are the identifiers called that cannot be used as variables or function names?",
@@ -139,7 +180,7 @@ const questionPool = [
             3:"Constants",
             4:"Reserved Words"
         },
-        correct: 4
+        correct: "4"
     },
     {
         question: "JavaScript does NOT have this function built-in, which is commonly used to print or display data in other languages.",
@@ -149,7 +190,7 @@ const questionPool = [
             3:"Display",
             4:"Speak"
         },
-        correct: 2
+        correct: "2"
     }
 ];
 
@@ -157,4 +198,4 @@ const questionPool = [
 // Event Listeners
 // **********************************************************************
 startButtonEl.addEventListener("click", startQuiz);
-submitButtonEl.addEventListener("click", showResults);
+submitButtonEl.addEventListener("click", recordResults);
