@@ -1,9 +1,3 @@
-// 2 Start button, has a timer, and presents questions
-    // create start button
-    // timer using setInterval
-
-    // DIVs to display question, timer, and high score
-
 // 3 answering a question move to the next question
 
 // 4 answering the question wrong will take time off the timer
@@ -13,118 +7,6 @@
 // 6 ability to save score when game is completed
 
 // 7 high scores page to display all the scores
-
-// **********************************************************************
-// Functions
-// **********************************************************************
-const startQuiz = function() {
-    // hides ID introduction
-    introductionEl.classList.add("hide");
-    introductionEl.classList.remove("show");
-    
-    // shows ID display-quiz
-    displayQuizEl.classList.add("show");
-    displayQuizEl.classList.remove("hide");
-
-    // store HTML output
-    const output = [];
-
-    // for each question 
-    questionPool.forEach((currentQuestion, questionIndex) => { // parameters are 'currentvalue', 'index', 'array itself'
-        // store possible answer choices
-        const storeChoices = [];
-
-        // for each available answer
-        for (number in currentQuestion.choices) {
-            // add an html radio button
-            storeChoices.push(
-                `
-                <label class='choices'>
-                <input type='radio' name='question${questionIndex}' value='${number}'>
-                ${currentQuestion.choices[number]}
-                </label>
-                `
-            );
-        }
-
-        // add this question and its answers to the output
-        output.push(
-        `
-        <div class='question'>${currentQuestion.question}</div>
-        <div class='answers'>${storeChoices.join('')}</div>
-        `
-        );
-
-    quizContainerEl.innerHTML = output.join('');
-    });
-    
-    // start counter
-    countdownTimer();
-};
-
-const recordResults = function() {
-    
-    // track user input (selected choice)
-    // select all answer containers
-    const selectedAnswerContainer = quizContainerEl.querySelectorAll(".answers");
-
-    // track # of correct answers
-    let numberCorrect = 0;
-
-    // for each question
-    questionPool.forEach((currentQuestion, questionIndex) => {
-        // find selected answer
-        const selectedAnswers = selectedAnswerContainer[questionIndex]; // select current question ANSWERS container
-        const selector = `input[name='question${questionIndex}']:checked`; // check current question INDEX
-        console.log(selector);
-        const userAnswer = (selectedAnswers.querySelector(selector) || {}).value; // returns value of checked index
-
-        // if answer is correct
-        if (userAnswer === currentQuestion.correct) {
-            // increment # of correct answers by 1
-            numberCorrect++;
-        }
-        // if answer is wrong
-        else {
-            // reduce time by 10 seconds
-            counter -= 10;
-        }
-    });
-
-
-    // once next button is clicked, then commit the selected choice
-    
-    // if choice is correct, no time is subtracted
-    // if choice is incorrect, time is subtracted by 10 seconds
-    
-    // move to next question
-
-    // if all questions are answered
-
-    // show results in high score
-     
-};
-
-const saveQuestions = function () {
-    localStorage.setItem("questions", JSON.stringify(questionPool));
-}
-
-const countdownTimer = function() {
-/*     // define time in seconds
-    let counter = 60; */
-    
-    setInterval(function () {
-        counter--; // reduce counter by 1
-
-        if (counter >= 0) { // continue countdown if...
-            displayTimerEl.textContent = "Time Remaining: " + counter;
-        }
-        
-        if (counter === 0) { // display
-            displayTimerEl.textContent = "The counter has finished!";
-        }
-    }, 1000);
-};
 
 // **********************************************************************
 // References
@@ -193,6 +75,117 @@ const questionPool = [
         correct: "2"
     }
 ];
+
+// **********************************************************************
+// Functions
+// **********************************************************************
+const startQuiz = function() {
+    // hides ID introduction
+    introductionEl.classList.add("hide");
+    introductionEl.classList.remove("show");
+    
+    // shows ID display-quiz
+    displayQuizEl.classList.add("show");
+    displayQuizEl.classList.remove("hide");
+
+    // store HTML output
+    const output = [];
+
+    // for each question 
+    questionPool.forEach((currentQuestion, questionIndex) => { // parameters are 'currentvalue', 'index', 'array itself'
+        // store possible answer choices
+        const storeChoices = [];
+
+        // for each available answer
+        for (number in currentQuestion.choices) {
+            // add an html radio button
+            storeChoices.push(
+                `
+                <div class='slideshow'>
+                <label class='choices'>
+                <input type='radio' name='question${questionIndex}' value='${number}'>
+                ${currentQuestion.choices[number]}
+                </label>
+                </div>
+                `
+            );
+        }
+
+        // add this question and its answers to the output
+        output.push(
+        `
+        <div class='question'>${currentQuestion.question}</div>
+        <div class='answers'>${storeChoices.join('')}</div>
+        `
+        );
+
+    quizContainerEl.innerHTML = output.join('');
+    });
+    
+    // start counter
+    countdownTimer();
+};
+
+const recordResults = function() {
+    
+    // track user input (selected choice)
+    // select all answer containers
+    const selectedAnswerContainer = quizContainerEl.querySelectorAll(".answers");
+
+    // track # of correct answers
+    let numberCorrect = 0;
+
+    // for each question
+    questionPool.forEach((currentQuestion, questionIndex) => {
+        // find selected answer
+        const selectedAnswers = selectedAnswerContainer[questionIndex]; // select current question ANSWERS container
+        const selector = `input[name='question${questionIndex}']:checked`; // check current question INDEX
+        const userAnswer = (selectedAnswers.querySelector(selector) || {}).value; // returns value of checked index
+
+        // if answer is correct
+        if (userAnswer === currentQuestion.correct) {
+            // increment # of correct answers by 1
+            numberCorrect++;
+        }
+        // if answer is wrong
+        else {
+            // reduce time by 10 seconds
+            counter -= 10;
+        }
+    });
+
+
+    // once next button is clicked, then commit the selected choice
+    
+    // if choice is correct, no time is subtracted
+    // if choice is incorrect, time is subtracted by 10 seconds
+    
+    // move to next question
+
+    // if all questions are answered
+
+    // show results in high score
+     
+};
+
+const saveQuestions = function () {
+    localStorage.setItem("questions", JSON.stringify(questionPool));
+}
+
+const countdownTimer = function() {
+    
+    setInterval(function () {
+        counter--; // reduce counter by 1
+
+        if (counter >= 0) { // continue countdown if...
+            displayTimerEl.textContent = "Time Remaining: " + counter;
+        }
+        
+        if (counter === 0) { // display
+            displayTimerEl.textContent = "The counter has finished!";
+        }
+    }, 1000);
+};
 
 // **********************************************************************
 // Event Listeners
